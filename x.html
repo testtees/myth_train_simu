@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傀異錬成評価ツール</title>
+    <style>
+        body {
+            /* font-family: 'Press Start 2P', cursive; */
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png'), #2d2d2d;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #222;
+            border: 3px solid #f39c12;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            width: 350px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+        select, button {
+            /* font-family: 'Press Start 2P', cursive; */
+            font-size: 1em;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 2px solid #f39c12;
+            background-color: #333;
+            color: #f39c12;
+        }
+        select {
+            width: 100%;
+        }
+        button {
+            background-color: #f39c12;
+            color: #222;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e67e22;
+        }
+        .hidden {
+            display: none;
+        }
+        .label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+</head>
+<body>
+    <div class="container">
+        <h1>傀異錬成評価ツール</h1>
+
+        <!-- スキルプルダウン -->
+        <div>
+            <label class="label" for="skill1">＋スキル1:</label>
+            <select id="skill1" name="skill1">
+              <option value="">選択してください</option>
+              <optgroup label="ユニーク">
+                <option value="冰気錬成">冰気錬成</option>
+                <option value="奮闘">奮闘</option>
+                <option value="風纏">風纏</option>
+                <option value="龍気変換">龍気変換</option>
+                <option value="粉塵纏">粉塵纏</option>
+                <option value="激昂">激昂</option>
+                <option value="根性">根性</option>
+                <option value="業鎧【修羅】">業鎧【修羅】</option>
+                <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+                <option value="狂竜症【翔】">狂竜症【翔】</option>
+              </optgroup>
+              <optgroup label="ガンナー">
+                <option value="チューンアップ">チューンアップ</option>
+                <option value="弾丸節約">弾丸節約</option>
+                <option value="装填拡張">装填拡張</option>
+                <option value="装填速度">装填速度</option>
+                <option value="反動軽減">反動軽減</option>
+              </optgroup>
+              <optgroup label="剣士">
+                <option value="心眼">心眼</option>
+                <option value="研磨術【鋭】">研磨術【鋭】</option>
+                <option value="剛刃研磨">剛刃研磨</option>
+                <option value="業物">業物</option>
+                <option value="砲弾装填">砲弾装填</option>
+                <option value="高速変形">高速変形</option>
+                <option value="匠">匠</option>
+                <option value="達人芸">達人芸</option>
+                <option value="抜刀術【技】">抜刀術【技】</option>
+                <option value="抜刀術【力】">抜刀術【力】</option>
+                <option value="砲術">砲術</option>
+                <option value="鈍器使い">鈍器使い</option>
+                <option value="砥石使用高速化">砥石使用高速化</option>
+              </optgroup>
+              <optgroup label="火力">
+                <option value="龍気活性">龍気活性</option>
+                <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+                <option value="鬼火纏">鬼火纏</option>
+                <option value="KO術">KO術</option>
+                <option value="攻撃">攻撃</option>
+                <option value="攻勢">攻勢</option>
+                <option value="渾身">渾身</option>
+                <option value="攻めの守勢">攻めの守勢</option>
+                <option value="破壊王">破壊王</option>
+                <option value="刃鱗磨き">刃鱗磨き</option>
+                <option value="死中に活">死中に活</option>
+                <option value="逆襲">逆襲</option>
+                <option value="逆恨み">逆恨み</option>
+                <option value="火事場力">火事場力</option>
+                <option value="会心撃【属性】">会心撃【属性】</option>
+                <option value="弱点特効【属性】">弱点特効【属性】</option>
+                <option value="見切り">見切り</option>
+                <option value="集中">集中</option>
+                <option value="災禍転福">災禍転福</option>
+                <option value="闇討ち">闇討ち</option>
+                <option value="巧撃">巧撃</option>
+                <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+                <option value="フルチャージ">フルチャージ</option>
+                <option value="チャージマスター">チャージマスター</option>
+                <option value="連撃">連撃</option>
+                <option value="不屈">不屈</option>
+                <option value="乗り名人">乗り名人</option>
+                <option value="超会心">超会心</option>
+                <option value="弱点特効">弱点特効</option>
+                <option value="力の解放">力の解放</option>
+                <option value="挑戦者">挑戦者</option>
+              </optgroup>
+              <optgroup label="生存">
+                <option value="疾之息吹">疾之息吹</option>
+                <option value="合気">合気</option>
+                <option value="回避性能">回避性能</option>
+                <option value="回避距離UP">回避距離UP</option>
+                <option value="耳栓">耳栓</option>
+                <option value="ガード性能">ガード性能</option>
+                <option value="精霊の加護">精霊の加護</option>
+                <option value="キノコ大好き">キノコ大好き</option>
+                <option value="泡沫の舞">泡沫の舞</option>
+                <option value="血氣">血氣</option>
+                <option value="煽衛">煽衛</option>
+                <option value="納刀術">納刀術</option>
+                <option value="スタミナ急速回復">スタミナ急速回復</option>
+                <option value="早食い">早食い</option>
+                <option value="耐震">耐震</option>
+                <option value="体術">体術</option>
+                <option value="体力回復量UP">体力回復量UP</option>
+                <option value="防御">防御</option>
+                <option value="剛心">剛心</option>
+                <option value="顕如盤石">顕如盤石</option>
+              </optgroup>
+              <optgroup label="強化">
+                <option value="速射強化">速射強化</option>
+                <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+                <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+                <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+                <option value="ガード強化">ガード強化</option>
+                <option value="強化持続">強化持続</option>
+                <option value="弾導強化">弾導強化</option>
+                <option value="睡眠属性強化">睡眠属性強化</option>
+                <option value="特殊射撃強化">特殊射撃強化</option>
+                <option value="爆破属性強化">爆破属性強化</option>
+                <option value="麻痺属性強化">麻痺属性強化</option>
+                <option value="アイテム使用強化">アイテム使用強化</option>
+                <option value="火属性攻撃強化">火属性攻撃強化</option>
+                <option value="毒属性強化">毒属性強化</option>
+                <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+                <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+                <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+                <option value="水属性攻撃強化">水属性攻撃強化</option>
+                <option value="滑走強化">滑走強化</option>
+              </optgroup>
+              <optgroup label="耐性">
+                <option value="属性やられ耐性">属性やられ耐性</option>
+                <option value="火耐性">火耐性</option>
+                <option value="水耐性">水耐性</option>
+                <option value="気絶耐性">気絶耐性</option>
+                <option value="毒耐性">毒耐性</option>
+                <option value="爆破やられ耐性">爆破やられ耐性</option>
+                <option value="氷耐性">氷耐性</option>
+                <option value="麻痺耐性">麻痺耐性</option>
+                <option value="睡眠耐性">睡眠耐性</option>
+                <option value="雷耐性">雷耐性</option>
+                <option value="龍耐性">龍耐性</option>
+                <option value="風圧耐性">風圧耐性</option>
+                <option value="腹減り耐性">腹減り耐性</option>
+                <option value="泥雪耐性">泥雪耐性</option>
+              </optgroup>
+              <optgroup label="その他">
+                <option value="翔蟲使い">翔蟲使い</option>
+                <option value="幸運">幸運</option>
+                <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+                <option value="ボマー">ボマー</option>
+                <option value="広域化">広域化</option>
+                <option value="回復速度">回復速度</option>
+                <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+                <option value="霞皮の恩恵">霞皮の恩恵</option>
+                <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+                <option value="ランナー">ランナー</option>
+                <option value="壁面移動">壁面移動</option>
+                <option value="壁面移動【翔】">壁面移動【翔】</option>
+                <option value="植生学">植生学</option>
+                <option value="地質学">地質学</option>
+                <option value="満足感">満足感</option>
+                <option value="ひるみ軽減">ひるみ軽減</option>
+                <option value="スタミナ奪取">スタミナ奪取</option>
+                <option value="ブレ抑制">ブレ抑制</option>
+                <option value="緩衝">緩衝</option>
+                <option value="供応">供応</option>
+                <option value="激励">激励</option>
+                <option value="陽動">陽動</option>
+                <option value="笛吹き名人">笛吹き名人</option>
+                <option value="飛び込み">飛び込み</option>
+                <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+              </optgroup>
+            </select>
+        </div>
+        <div id="skill2-container" class="hidden">
+            <label class="label" for="skill2">＋スキル2:</label>
+            <select id="skill2" name="skill2">
+              <optgroup label="ユニーク">
+                <option value="冰気錬成">冰気錬成</option>
+                <option value="奮闘">奮闘</option>
+                <option value="風纏">風纏</option>
+                <option value="龍気変換">龍気変換</option>
+                <option value="粉塵纏">粉塵纏</option>
+                <option value="激昂">激昂</option>
+                <option value="根性">根性</option>
+                <option value="業鎧【修羅】">業鎧【修羅】</option>
+                <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+                <option value="狂竜症【翔】">狂竜症【翔】</option>
+              </optgroup>
+              <optgroup label="ガンナー">
+                <option value="チューンアップ">チューンアップ</option>
+                <option value="弾丸節約">弾丸節約</option>
+                <option value="装填拡張">装填拡張</option>
+                <option value="装填速度">装填速度</option>
+                <option value="反動軽減">反動軽減</option>
+              </optgroup>
+              <optgroup label="剣士">
+                <option value="心眼">心眼</option>
+                <option value="研磨術【鋭】">研磨術【鋭】</option>
+                <option value="剛刃研磨">剛刃研磨</option>
+                <option value="業物">業物</option>
+                <option value="砲弾装填">砲弾装填</option>
+                <option value="高速変形">高速変形</option>
+                <option value="匠">匠</option>
+                <option value="達人芸">達人芸</option>
+                <option value="抜刀術【技】">抜刀術【技】</option>
+                <option value="抜刀術【力】">抜刀術【力】</option>
+                <option value="砲術">砲術</option>
+                <option value="鈍器使い">鈍器使い</option>
+                <option value="砥石使用高速化">砥石使用高速化</option>
+              </optgroup>
+              <optgroup label="火力">
+                <option value="龍気活性">龍気活性</option>
+                <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+                <option value="鬼火纏">鬼火纏</option>
+                <option value="KO術">KO術</option>
+                <option value="攻撃">攻撃</option>
+                <option value="攻勢">攻勢</option>
+                <option value="渾身">渾身</option>
+                <option value="攻めの守勢">攻めの守勢</option>
+                <option value="破壊王">破壊王</option>
+                <option value="刃鱗磨き">刃鱗磨き</option>
+                <option value="死中に活">死中に活</option>
+                <option value="逆襲">逆襲</option>
+                <option value="逆恨み">逆恨み</option>
+                <option value="火事場力">火事場力</option>
+                <option value="会心撃【属性】">会心撃【属性】</option>
+                <option value="弱点特効【属性】">弱点特効【属性】</option>
+                <option value="見切り">見切り</option>
+                <option value="集中">集中</option>
+                <option value="災禍転福">災禍転福</option>
+                <option value="闇討ち">闇討ち</option>
+                <option value="巧撃">巧撃</option>
+                <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+                <option value="フルチャージ">フルチャージ</option>
+                <option value="チャージマスター">チャージマスター</option>
+                <option value="連撃">連撃</option>
+                <option value="不屈">不屈</option>
+                <option value="乗り名人">乗り名人</option>
+                <option value="超会心">超会心</option>
+                <option value="弱点特効">弱点特効</option>
+                <option value="力の解放">力の解放</option>
+                <option value="挑戦者">挑戦者</option>
+              </optgroup>
+              <optgroup label="生存">
+                <option value="疾之息吹">疾之息吹</option>
+                <option value="合気">合気</option>
+                <option value="回避性能">回避性能</option>
+                <option value="回避距離UP">回避距離UP</option>
+                <option value="耳栓">耳栓</option>
+                <option value="ガード性能">ガード性能</option>
+                <option value="精霊の加護">精霊の加護</option>
+                <option value="キノコ大好き">キノコ大好き</option>
+                <option value="泡沫の舞">泡沫の舞</option>
+                <option value="血氣">血氣</option>
+                <option value="煽衛">煽衛</option>
+                <option value="納刀術">納刀術</option>
+                <option value="スタミナ急速回復">スタミナ急速回復</option>
+                <option value="早食い">早食い</option>
+                <option value="耐震">耐震</option>
+                <option value="体術">体術</option>
+                <option value="体力回復量UP">体力回復量UP</option>
+                <option value="防御">防御</option>
+                <option value="剛心">剛心</option>
+                <option value="顕如盤石">顕如盤石</option>
+              </optgroup>
+              <optgroup label="強化">
+                <option value="速射強化">速射強化</option>
+                <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+                <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+                <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+                <option value="ガード強化">ガード強化</option>
+                <option value="強化持続">強化持続</option>
+                <option value="弾導強化">弾導強化</option>
+                <option value="睡眠属性強化">睡眠属性強化</option>
+                <option value="特殊射撃強化">特殊射撃強化</option>
+                <option value="爆破属性強化">爆破属性強化</option>
+                <option value="麻痺属性強化">麻痺属性強化</option>
+                <option value="アイテム使用強化">アイテム使用強化</option>
+                <option value="火属性攻撃強化">火属性攻撃強化</option>
+                <option value="毒属性強化">毒属性強化</option>
+                <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+                <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+                <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+                <option value="水属性攻撃強化">水属性攻撃強化</option>
+                <option value="滑走強化">滑走強化</option>
+              </optgroup>
+              <optgroup label="耐性">
+                <option value="属性やられ耐性">属性やられ耐性</option>
+                <option value="火耐性">火耐性</option>
+                <option value="水耐性">水耐性</option>
+                <option value="気絶耐性">気絶耐性</option>
+                <option value="毒耐性">毒耐性</option>
+                <option value="爆破やられ耐性">爆破やられ耐性</option>
+                <option value="氷耐性">氷耐性</option>
+                <option value="麻痺耐性">麻痺耐性</option>
+                <option value="睡眠耐性">睡眠耐性</option>
+                <option value="雷耐性">雷耐性</option>
+                <option value="龍耐性">龍耐性</option>
+                <option value="風圧耐性">風圧耐性</option>
+                <option value="腹減り耐性">腹減り耐性</option>
+                <option value="泥雪耐性">泥雪耐性</option>
+              </optgroup>
+              <optgroup label="その他">
+                <option value="翔蟲使い">翔蟲使い</option>
+                <option value="幸運">幸運</option>
+                <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+                <option value="ボマー">ボマー</option>
+                <option value="広域化">広域化</option>
+                <option value="回復速度">回復速度</option>
+                <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+                <option value="霞皮の恩恵">霞皮の恩恵</option>
+                <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+                <option value="ランナー">ランナー</option>
+                <option value="壁面移動">壁面移動</option>
+                <option value="壁面移動【翔】">壁面移動【翔】</option>
+                <option value="植生学">植生学</option>
+                <option value="地質学">地質学</option>
+                <option value="満足感">満足感</option>
+                <option value="ひるみ軽減">ひるみ軽減</option>
+                <option value="スタミナ奪取">スタミナ奪取</option>
+                <option value="ブレ抑制">ブレ抑制</option>
+                <option value="緩衝">緩衝</option>
+                <option value="供応">供応</option>
+                <option value="激励">激励</option>
+                <option value="陽動">陽動</option>
+                <option value="笛吹き名人">笛吹き名人</option>
+                <option value="飛び込み">飛び込み</option>
+                <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+              </optgroup>
+            </select>
+        </div>
+        <div id="skill3-container" class="hidden">
+            <label class="label" for="skill3">＋スキル3:</label>
+            <select id="skill3" name="skill3">
+              <optgroup label="ユニーク">
+                <option value="冰気錬成">冰気錬成</option>
+                <option value="奮闘">奮闘</option>
+                <option value="風纏">風纏</option>
+                <option value="龍気変換">龍気変換</option>
+                <option value="粉塵纏">粉塵纏</option>
+                <option value="激昂">激昂</option>
+                <option value="根性">根性</option>
+                <option value="業鎧【修羅】">業鎧【修羅】</option>
+                <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+                <option value="狂竜症【翔】">狂竜症【翔】</option>
+              </optgroup>
+              <optgroup label="ガンナー">
+                <option value="チューンアップ">チューンアップ</option>
+                <option value="弾丸節約">弾丸節約</option>
+                <option value="装填拡張">装填拡張</option>
+                <option value="装填速度">装填速度</option>
+                <option value="反動軽減">反動軽減</option>
+              </optgroup>
+              <optgroup label="剣士">
+                <option value="心眼">心眼</option>
+                <option value="研磨術【鋭】">研磨術【鋭】</option>
+                <option value="剛刃研磨">剛刃研磨</option>
+                <option value="業物">業物</option>
+                <option value="砲弾装填">砲弾装填</option>
+                <option value="高速変形">高速変形</option>
+                <option value="匠">匠</option>
+                <option value="達人芸">達人芸</option>
+                <option value="抜刀術【技】">抜刀術【技】</option>
+                <option value="抜刀術【力】">抜刀術【力】</option>
+                <option value="砲術">砲術</option>
+                <option value="鈍器使い">鈍器使い</option>
+                <option value="砥石使用高速化">砥石使用高速化</option>
+              </optgroup>
+              <optgroup label="火力">
+                <option value="龍気活性">龍気活性</option>
+                <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+                <option value="鬼火纏">鬼火纏</option>
+                <option value="KO術">KO術</option>
+                <option value="攻撃">攻撃</option>
+                <option value="攻勢">攻勢</option>
+                <option value="渾身">渾身</option>
+                <option value="攻めの守勢">攻めの守勢</option>
+                <option value="破壊王">破壊王</option>
+                <option value="刃鱗磨き">刃鱗磨き</option>
+                <option value="死中に活">死中に活</option>
+                <option value="逆襲">逆襲</option>
+                <option value="逆恨み">逆恨み</option>
+                <option value="火事場力">火事場力</option>
+                <option value="会心撃【属性】">会心撃【属性】</option>
+                <option value="弱点特効【属性】">弱点特効【属性】</option>
+                <option value="見切り">見切り</option>
+                <option value="集中">集中</option>
+                <option value="災禍転福">災禍転福</option>
+                <option value="闇討ち">闇討ち</option>
+                <option value="巧撃">巧撃</option>
+                <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+                <option value="フルチャージ">フルチャージ</option>
+                <option value="チャージマスター">チャージマスター</option>
+                <option value="連撃">連撃</option>
+                <option value="不屈">不屈</option>
+                <option value="乗り名人">乗り名人</option>
+                <option value="超会心">超会心</option>
+                <option value="弱点特効">弱点特効</option>
+                <option value="力の解放">力の解放</option>
+                <option value="挑戦者">挑戦者</option>
+              </optgroup>
+              <optgroup label="生存">
+                <option value="疾之息吹">疾之息吹</option>
+                <option value="合気">合気</option>
+                <option value="回避性能">回避性能</option>
+                <option value="回避距離UP">回避距離UP</option>
+                <option value="耳栓">耳栓</option>
+                <option value="ガード性能">ガード性能</option>
+                <option value="精霊の加護">精霊の加護</option>
+                <option value="キノコ大好き">キノコ大好き</option>
+                <option value="泡沫の舞">泡沫の舞</option>
+                <option value="血氣">血氣</option>
+                <option value="煽衛">煽衛</option>
+                <option value="納刀術">納刀術</option>
+                <option value="スタミナ急速回復">スタミナ急速回復</option>
+                <option value="早食い">早食い</option>
+                <option value="耐震">耐震</option>
+                <option value="体術">体術</option>
+                <option value="体力回復量UP">体力回復量UP</option>
+                <option value="防御">防御</option>
+                <option value="剛心">剛心</option>
+                <option value="顕如盤石">顕如盤石</option>
+              </optgroup>
+              <optgroup label="強化">
+                <option value="速射強化">速射強化</option>
+                <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+                <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+                <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+                <option value="ガード強化">ガード強化</option>
+                <option value="強化持続">強化持続</option>
+                <option value="弾導強化">弾導強化</option>
+                <option value="睡眠属性強化">睡眠属性強化</option>
+                <option value="特殊射撃強化">特殊射撃強化</option>
+                <option value="爆破属性強化">爆破属性強化</option>
+                <option value="麻痺属性強化">麻痺属性強化</option>
+                <option value="アイテム使用強化">アイテム使用強化</option>
+                <option value="火属性攻撃強化">火属性攻撃強化</option>
+                <option value="毒属性強化">毒属性強化</option>
+                <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+                <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+                <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+                <option value="水属性攻撃強化">水属性攻撃強化</option>
+                <option value="滑走強化">滑走強化</option>
+              </optgroup>
+              <optgroup label="耐性">
+                <option value="属性やられ耐性">属性やられ耐性</option>
+                <option value="火耐性">火耐性</option>
+                <option value="水耐性">水耐性</option>
+                <option value="気絶耐性">気絶耐性</option>
+                <option value="毒耐性">毒耐性</option>
+                <option value="爆破やられ耐性">爆破やられ耐性</option>
+                <option value="氷耐性">氷耐性</option>
+                <option value="麻痺耐性">麻痺耐性</option>
+                <option value="睡眠耐性">睡眠耐性</option>
+                <option value="雷耐性">雷耐性</option>
+                <option value="龍耐性">龍耐性</option>
+                <option value="風圧耐性">風圧耐性</option>
+                <option value="腹減り耐性">腹減り耐性</option>
+                <option value="泥雪耐性">泥雪耐性</option>
+              </optgroup>
+              <optgroup label="その他">
+                <option value="翔蟲使い">翔蟲使い</option>
+                <option value="幸運">幸運</option>
+                <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+                <option value="ボマー">ボマー</option>
+                <option value="広域化">広域化</option>
+                <option value="回復速度">回復速度</option>
+                <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+                <option value="霞皮の恩恵">霞皮の恩恵</option>
+                <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+                <option value="ランナー">ランナー</option>
+                <option value="壁面移動">壁面移動</option>
+                <option value="壁面移動【翔】">壁面移動【翔】</option>
+                <option value="植生学">植生学</option>
+                <option value="地質学">地質学</option>
+                <option value="満足感">満足感</option>
+                <option value="ひるみ軽減">ひるみ軽減</option>
+                <option value="スタミナ奪取">スタミナ奪取</option>
+                <option value="ブレ抑制">ブレ抑制</option>
+                <option value="緩衝">緩衝</option>
+                <option value="供応">供応</option>
+                <option value="激励">激励</option>
+                <option value="陽動">陽動</option>
+                <option value="笛吹き名人">笛吹き名人</option>
+                <option value="飛び込み">飛び込み</option>
+                <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+              </optgroup>
+            </select>
+        </div>
+        <div id="skill4-container" class="hidden">
+            <label class="label" for="skill4">＋スキル4:</label>
+            <select id="skill4" name="skill4">
+              <optgroup label="ユニーク">
+                <option value="冰気錬成">冰気錬成</option>
+                <option value="奮闘">奮闘</option>
+                <option value="風纏">風纏</option>
+                <option value="龍気変換">龍気変換</option>
+                <option value="粉塵纏">粉塵纏</option>
+                <option value="激昂">激昂</option>
+                <option value="根性">根性</option>
+                <option value="業鎧【修羅】">業鎧【修羅】</option>
+                <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+                <option value="狂竜症【翔】">狂竜症【翔】</option>
+              </optgroup>
+              <optgroup label="ガンナー">
+                <option value="チューンアップ">チューンアップ</option>
+                <option value="弾丸節約">弾丸節約</option>
+                <option value="装填拡張">装填拡張</option>
+                <option value="装填速度">装填速度</option>
+                <option value="反動軽減">反動軽減</option>
+              </optgroup>
+              <optgroup label="剣士">
+                <option value="心眼">心眼</option>
+                <option value="研磨術【鋭】">研磨術【鋭】</option>
+                <option value="剛刃研磨">剛刃研磨</option>
+                <option value="業物">業物</option>
+                <option value="砲弾装填">砲弾装填</option>
+                <option value="高速変形">高速変形</option>
+                <option value="匠">匠</option>
+                <option value="達人芸">達人芸</option>
+                <option value="抜刀術【技】">抜刀術【技】</option>
+                <option value="抜刀術【力】">抜刀術【力】</option>
+                <option value="砲術">砲術</option>
+                <option value="鈍器使い">鈍器使い</option>
+                <option value="砥石使用高速化">砥石使用高速化</option>
+              </optgroup>
+              <optgroup label="火力">
+                <option value="龍気活性">龍気活性</option>
+                <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+                <option value="鬼火纏">鬼火纏</option>
+                <option value="KO術">KO術</option>
+                <option value="攻撃">攻撃</option>
+                <option value="攻勢">攻勢</option>
+                <option value="渾身">渾身</option>
+                <option value="攻めの守勢">攻めの守勢</option>
+                <option value="破壊王">破壊王</option>
+                <option value="刃鱗磨き">刃鱗磨き</option>
+                <option value="死中に活">死中に活</option>
+                <option value="逆襲">逆襲</option>
+                <option value="逆恨み">逆恨み</option>
+                <option value="火事場力">火事場力</option>
+                <option value="会心撃【属性】">会心撃【属性】</option>
+                <option value="弱点特効【属性】">弱点特効【属性】</option>
+                <option value="見切り">見切り</option>
+                <option value="集中">集中</option>
+                <option value="災禍転福">災禍転福</option>
+                <option value="闇討ち">闇討ち</option>
+                <option value="巧撃">巧撃</option>
+                <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+                <option value="フルチャージ">フルチャージ</option>
+                <option value="チャージマスター">チャージマスター</option>
+                <option value="連撃">連撃</option>
+                <option value="不屈">不屈</option>
+                <option value="乗り名人">乗り名人</option>
+                <option value="超会心">超会心</option>
+                <option value="弱点特効">弱点特効</option>
+                <option value="力の解放">力の解放</option>
+                <option value="挑戦者">挑戦者</option>
+              </optgroup>
+              <optgroup label="生存">
+                <option value="疾之息吹">疾之息吹</option>
+                <option value="合気">合気</option>
+                <option value="回避性能">回避性能</option>
+                <option value="回避距離UP">回避距離UP</option>
+                <option value="耳栓">耳栓</option>
+                <option value="ガード性能">ガード性能</option>
+                <option value="精霊の加護">精霊の加護</option>
+                <option value="キノコ大好き">キノコ大好き</option>
+                <option value="泡沫の舞">泡沫の舞</option>
+                <option value="血氣">血氣</option>
+                <option value="煽衛">煽衛</option>
+                <option value="納刀術">納刀術</option>
+                <option value="スタミナ急速回復">スタミナ急速回復</option>
+                <option value="早食い">早食い</option>
+                <option value="耐震">耐震</option>
+                <option value="体術">体術</option>
+                <option value="体力回復量UP">体力回復量UP</option>
+                <option value="防御">防御</option>
+                <option value="剛心">剛心</option>
+                <option value="顕如盤石">顕如盤石</option>
+              </optgroup>
+              <optgroup label="強化">
+                <option value="速射強化">速射強化</option>
+                <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+                <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+                <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+                <option value="ガード強化">ガード強化</option>
+                <option value="強化持続">強化持続</option>
+                <option value="弾導強化">弾導強化</option>
+                <option value="睡眠属性強化">睡眠属性強化</option>
+                <option value="特殊射撃強化">特殊射撃強化</option>
+                <option value="爆破属性強化">爆破属性強化</option>
+                <option value="麻痺属性強化">麻痺属性強化</option>
+                <option value="アイテム使用強化">アイテム使用強化</option>
+                <option value="火属性攻撃強化">火属性攻撃強化</option>
+                <option value="毒属性強化">毒属性強化</option>
+                <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+                <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+                <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+                <option value="水属性攻撃強化">水属性攻撃強化</option>
+                <option value="滑走強化">滑走強化</option>
+              </optgroup>
+              <optgroup label="耐性">
+                <option value="属性やられ耐性">属性やられ耐性</option>
+                <option value="火耐性">火耐性</option>
+                <option value="水耐性">水耐性</option>
+                <option value="気絶耐性">気絶耐性</option>
+                <option value="毒耐性">毒耐性</option>
+                <option value="爆破やられ耐性">爆破やられ耐性</option>
+                <option value="氷耐性">氷耐性</option>
+                <option value="麻痺耐性">麻痺耐性</option>
+                <option value="睡眠耐性">睡眠耐性</option>
+                <option value="雷耐性">雷耐性</option>
+                <option value="龍耐性">龍耐性</option>
+                <option value="風圧耐性">風圧耐性</option>
+                <option value="腹減り耐性">腹減り耐性</option>
+                <option value="泥雪耐性">泥雪耐性</option>
+              </optgroup>
+              <optgroup label="その他">
+                <option value="翔蟲使い">翔蟲使い</option>
+                <option value="幸運">幸運</option>
+                <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+                <option value="ボマー">ボマー</option>
+                <option value="広域化">広域化</option>
+                <option value="回復速度">回復速度</option>
+                <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+                <option value="霞皮の恩恵">霞皮の恩恵</option>
+                <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+                <option value="ランナー">ランナー</option>
+                <option value="壁面移動">壁面移動</option>
+                <option value="壁面移動【翔】">壁面移動【翔】</option>
+                <option value="植生学">植生学</option>
+                <option value="地質学">地質学</option>
+                <option value="満足感">満足感</option>
+                <option value="ひるみ軽減">ひるみ軽減</option>
+                <option value="スタミナ奪取">スタミナ奪取</option>
+                <option value="ブレ抑制">ブレ抑制</option>
+                <option value="緩衝">緩衝</option>
+                <option value="供応">供応</option>
+                <option value="激励">激励</option>
+                <option value="陽動">陽動</option>
+                <option value="笛吹き名人">笛吹き名人</option>
+                <option value="飛び込み">飛び込み</option>
+                <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+              </optgroup>
+            </select>
+        </div>
+      <!-- -スキルプルダウン -->
+      <div>
+          <label class="label" for="skill1-">ースキル1:</label>
+          <select id="skill1-" name="skill1^">
+            <option value="">選択してください</option>
+            <optgroup label="ユニーク">
+              <option value="冰気錬成">冰気錬成</option>
+              <option value="奮闘">奮闘</option>
+              <option value="風纏">風纏</option>
+              <option value="龍気変換">龍気変換</option>
+              <option value="粉塵纏">粉塵纏</option>
+              <option value="激昂">激昂</option>
+              <option value="根性">根性</option>
+              <option value="業鎧【修羅】">業鎧【修羅】</option>
+              <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+              <option value="狂竜症【翔】">狂竜症【翔】</option>
+            </optgroup>
+            <optgroup label="ガンナー">
+              <option value="チューンアップ">チューンアップ</option>
+              <option value="弾丸節約">弾丸節約</option>
+              <option value="装填拡張">装填拡張</option>
+              <option value="装填速度">装填速度</option>
+              <option value="反動軽減">反動軽減</option>
+            </optgroup>
+            <optgroup label="剣士">
+              <option value="心眼">心眼</option>
+              <option value="研磨術【鋭】">研磨術【鋭】</option>
+              <option value="剛刃研磨">剛刃研磨</option>
+              <option value="業物">業物</option>
+              <option value="砲弾装填">砲弾装填</option>
+              <option value="高速変形">高速変形</option>
+              <option value="匠">匠</option>
+              <option value="達人芸">達人芸</option>
+              <option value="抜刀術【技】">抜刀術【技】</option>
+              <option value="抜刀術【力】">抜刀術【力】</option>
+              <option value="砲術">砲術</option>
+              <option value="鈍器使い">鈍器使い</option>
+              <option value="砥石使用高速化">砥石使用高速化</option>
+            </optgroup>
+            <optgroup label="火力">
+              <option value="龍気活性">龍気活性</option>
+              <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+              <option value="鬼火纏">鬼火纏</option>
+              <option value="KO術">KO術</option>
+              <option value="攻撃">攻撃</option>
+              <option value="攻勢">攻勢</option>
+              <option value="渾身">渾身</option>
+              <option value="攻めの守勢">攻めの守勢</option>
+              <option value="破壊王">破壊王</option>
+              <option value="刃鱗磨き">刃鱗磨き</option>
+              <option value="死中に活">死中に活</option>
+              <option value="逆襲">逆襲</option>
+              <option value="逆恨み">逆恨み</option>
+              <option value="火事場力">火事場力</option>
+              <option value="会心撃【属性】">会心撃【属性】</option>
+              <option value="弱点特効【属性】">弱点特効【属性】</option>
+              <option value="見切り">見切り</option>
+              <option value="集中">集中</option>
+              <option value="災禍転福">災禍転福</option>
+              <option value="闇討ち">闇討ち</option>
+              <option value="巧撃">巧撃</option>
+              <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+              <option value="フルチャージ">フルチャージ</option>
+              <option value="チャージマスター">チャージマスター</option>
+              <option value="連撃">連撃</option>
+              <option value="不屈">不屈</option>
+              <option value="乗り名人">乗り名人</option>
+              <option value="超会心">超会心</option>
+              <option value="弱点特効">弱点特効</option>
+              <option value="力の解放">力の解放</option>
+              <option value="挑戦者">挑戦者</option>
+            </optgroup>
+            <optgroup label="生存">
+              <option value="疾之息吹">疾之息吹</option>
+              <option value="合気">合気</option>
+              <option value="回避性能">回避性能</option>
+              <option value="回避距離UP">回避距離UP</option>
+              <option value="耳栓">耳栓</option>
+              <option value="ガード性能">ガード性能</option>
+              <option value="精霊の加護">精霊の加護</option>
+              <option value="キノコ大好き">キノコ大好き</option>
+              <option value="泡沫の舞">泡沫の舞</option>
+              <option value="血氣">血氣</option>
+              <option value="煽衛">煽衛</option>
+              <option value="納刀術">納刀術</option>
+              <option value="スタミナ急速回復">スタミナ急速回復</option>
+              <option value="早食い">早食い</option>
+              <option value="耐震">耐震</option>
+              <option value="体術">体術</option>
+              <option value="体力回復量UP">体力回復量UP</option>
+              <option value="防御">防御</option>
+              <option value="剛心">剛心</option>
+              <option value="顕如盤石">顕如盤石</option>
+            </optgroup>
+            <optgroup label="強化">
+              <option value="速射強化">速射強化</option>
+              <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+              <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+              <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+              <option value="ガード強化">ガード強化</option>
+              <option value="強化持続">強化持続</option>
+              <option value="弾導強化">弾導強化</option>
+              <option value="睡眠属性強化">睡眠属性強化</option>
+              <option value="特殊射撃強化">特殊射撃強化</option>
+              <option value="爆破属性強化">爆破属性強化</option>
+              <option value="麻痺属性強化">麻痺属性強化</option>
+              <option value="アイテム使用強化">アイテム使用強化</option>
+              <option value="火属性攻撃強化">火属性攻撃強化</option>
+              <option value="毒属性強化">毒属性強化</option>
+              <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+              <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+              <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+              <option value="水属性攻撃強化">水属性攻撃強化</option>
+              <option value="滑走強化">滑走強化</option>
+            </optgroup>
+            <optgroup label="耐性">
+              <option value="属性やられ耐性">属性やられ耐性</option>
+              <option value="火耐性">火耐性</option>
+              <option value="水耐性">水耐性</option>
+              <option value="気絶耐性">気絶耐性</option>
+              <option value="毒耐性">毒耐性</option>
+              <option value="爆破やられ耐性">爆破やられ耐性</option>
+              <option value="氷耐性">氷耐性</option>
+              <option value="麻痺耐性">麻痺耐性</option>
+              <option value="睡眠耐性">睡眠耐性</option>
+              <option value="雷耐性">雷耐性</option>
+              <option value="龍耐性">龍耐性</option>
+              <option value="風圧耐性">風圧耐性</option>
+              <option value="腹減り耐性">腹減り耐性</option>
+              <option value="泥雪耐性">泥雪耐性</option>
+            </optgroup>
+            <optgroup label="その他">
+              <option value="翔蟲使い">翔蟲使い</option>
+              <option value="幸運">幸運</option>
+              <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+              <option value="ボマー">ボマー</option>
+              <option value="広域化">広域化</option>
+              <option value="回復速度">回復速度</option>
+              <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+              <option value="霞皮の恩恵">霞皮の恩恵</option>
+              <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+              <option value="ランナー">ランナー</option>
+              <option value="壁面移動">壁面移動</option>
+              <option value="壁面移動【翔】">壁面移動【翔】</option>
+              <option value="植生学">植生学</option>
+              <option value="地質学">地質学</option>
+              <option value="満足感">満足感</option>
+              <option value="ひるみ軽減">ひるみ軽減</option>
+              <option value="スタミナ奪取">スタミナ奪取</option>
+              <option value="ブレ抑制">ブレ抑制</option>
+              <option value="緩衝">緩衝</option>
+              <option value="供応">供応</option>
+              <option value="激励">激励</option>
+              <option value="陽動">陽動</option>
+              <option value="笛吹き名人">笛吹き名人</option>
+              <option value="飛び込み">飛び込み</option>
+              <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+            </optgroup>
+          </select>
+      </div>
+      <div id="skill2-container-" class="hidden">
+          <label class="label" for="skill2-">ースキル2:</label>
+          <select id="skill2-" name="skill2-">
+            <optgroup label="ユニーク">
+              <option value="冰気錬成">冰気錬成</option>
+              <option value="奮闘">奮闘</option>
+              <option value="風纏">風纏</option>
+              <option value="龍気変換">龍気変換</option>
+              <option value="粉塵纏">粉塵纏</option>
+              <option value="激昂">激昂</option>
+              <option value="根性">根性</option>
+              <option value="業鎧【修羅】">業鎧【修羅】</option>
+              <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+              <option value="狂竜症【翔】">狂竜症【翔】</option>
+            </optgroup>
+            <optgroup label="ガンナー">
+              <option value="チューンアップ">チューンアップ</option>
+              <option value="弾丸節約">弾丸節約</option>
+              <option value="装填拡張">装填拡張</option>
+              <option value="装填速度">装填速度</option>
+              <option value="反動軽減">反動軽減</option>
+            </optgroup>
+            <optgroup label="剣士">
+              <option value="心眼">心眼</option>
+              <option value="研磨術【鋭】">研磨術【鋭】</option>
+              <option value="剛刃研磨">剛刃研磨</option>
+              <option value="業物">業物</option>
+              <option value="砲弾装填">砲弾装填</option>
+              <option value="高速変形">高速変形</option>
+              <option value="匠">匠</option>
+              <option value="達人芸">達人芸</option>
+              <option value="抜刀術【技】">抜刀術【技】</option>
+              <option value="抜刀術【力】">抜刀術【力】</option>
+              <option value="砲術">砲術</option>
+              <option value="鈍器使い">鈍器使い</option>
+              <option value="砥石使用高速化">砥石使用高速化</option>
+            </optgroup>
+            <optgroup label="火力">
+              <option value="龍気活性">龍気活性</option>
+              <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+              <option value="鬼火纏">鬼火纏</option>
+              <option value="KO術">KO術</option>
+              <option value="攻撃">攻撃</option>
+              <option value="攻勢">攻勢</option>
+              <option value="渾身">渾身</option>
+              <option value="攻めの守勢">攻めの守勢</option>
+              <option value="破壊王">破壊王</option>
+              <option value="刃鱗磨き">刃鱗磨き</option>
+              <option value="死中に活">死中に活</option>
+              <option value="逆襲">逆襲</option>
+              <option value="逆恨み">逆恨み</option>
+              <option value="火事場力">火事場力</option>
+              <option value="会心撃【属性】">会心撃【属性】</option>
+              <option value="弱点特効【属性】">弱点特効【属性】</option>
+              <option value="見切り">見切り</option>
+              <option value="集中">集中</option>
+              <option value="災禍転福">災禍転福</option>
+              <option value="闇討ち">闇討ち</option>
+              <option value="巧撃">巧撃</option>
+              <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+              <option value="フルチャージ">フルチャージ</option>
+              <option value="チャージマスター">チャージマスター</option>
+              <option value="連撃">連撃</option>
+              <option value="不屈">不屈</option>
+              <option value="乗り名人">乗り名人</option>
+              <option value="超会心">超会心</option>
+              <option value="弱点特効">弱点特効</option>
+              <option value="力の解放">力の解放</option>
+              <option value="挑戦者">挑戦者</option>
+            </optgroup>
+            <optgroup label="生存">
+              <option value="疾之息吹">疾之息吹</option>
+              <option value="合気">合気</option>
+              <option value="回避性能">回避性能</option>
+              <option value="回避距離UP">回避距離UP</option>
+              <option value="耳栓">耳栓</option>
+              <option value="ガード性能">ガード性能</option>
+              <option value="精霊の加護">精霊の加護</option>
+              <option value="キノコ大好き">キノコ大好き</option>
+              <option value="泡沫の舞">泡沫の舞</option>
+              <option value="血氣">血氣</option>
+              <option value="煽衛">煽衛</option>
+              <option value="納刀術">納刀術</option>
+              <option value="スタミナ急速回復">スタミナ急速回復</option>
+              <option value="早食い">早食い</option>
+              <option value="耐震">耐震</option>
+              <option value="体術">体術</option>
+              <option value="体力回復量UP">体力回復量UP</option>
+              <option value="防御">防御</option>
+              <option value="剛心">剛心</option>
+              <option value="顕如盤石">顕如盤石</option>
+            </optgroup>
+            <optgroup label="強化">
+              <option value="速射強化">速射強化</option>
+              <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+              <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+              <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+              <option value="ガード強化">ガード強化</option>
+              <option value="強化持続">強化持続</option>
+              <option value="弾導強化">弾導強化</option>
+              <option value="睡眠属性強化">睡眠属性強化</option>
+              <option value="特殊射撃強化">特殊射撃強化</option>
+              <option value="爆破属性強化">爆破属性強化</option>
+              <option value="麻痺属性強化">麻痺属性強化</option>
+              <option value="アイテム使用強化">アイテム使用強化</option>
+              <option value="火属性攻撃強化">火属性攻撃強化</option>
+              <option value="毒属性強化">毒属性強化</option>
+              <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+              <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+              <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+              <option value="水属性攻撃強化">水属性攻撃強化</option>
+              <option value="滑走強化">滑走強化</option>
+            </optgroup>
+            <optgroup label="耐性">
+              <option value="属性やられ耐性">属性やられ耐性</option>
+              <option value="火耐性">火耐性</option>
+              <option value="水耐性">水耐性</option>
+              <option value="気絶耐性">気絶耐性</option>
+              <option value="毒耐性">毒耐性</option>
+              <option value="爆破やられ耐性">爆破やられ耐性</option>
+              <option value="氷耐性">氷耐性</option>
+              <option value="麻痺耐性">麻痺耐性</option>
+              <option value="睡眠耐性">睡眠耐性</option>
+              <option value="雷耐性">雷耐性</option>
+              <option value="龍耐性">龍耐性</option>
+              <option value="風圧耐性">風圧耐性</option>
+              <option value="腹減り耐性">腹減り耐性</option>
+              <option value="泥雪耐性">泥雪耐性</option>
+            </optgroup>
+            <optgroup label="その他">
+              <option value="翔蟲使い">翔蟲使い</option>
+              <option value="幸運">幸運</option>
+              <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+              <option value="ボマー">ボマー</option>
+              <option value="広域化">広域化</option>
+              <option value="回復速度">回復速度</option>
+              <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+              <option value="霞皮の恩恵">霞皮の恩恵</option>
+              <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+              <option value="ランナー">ランナー</option>
+              <option value="壁面移動">壁面移動</option>
+              <option value="壁面移動【翔】">壁面移動【翔】</option>
+              <option value="植生学">植生学</option>
+              <option value="地質学">地質学</option>
+              <option value="満足感">満足感</option>
+              <option value="ひるみ軽減">ひるみ軽減</option>
+              <option value="スタミナ奪取">スタミナ奪取</option>
+              <option value="ブレ抑制">ブレ抑制</option>
+              <option value="緩衝">緩衝</option>
+              <option value="供応">供応</option>
+              <option value="激励">激励</option>
+              <option value="陽動">陽動</option>
+              <option value="笛吹き名人">笛吹き名人</option>
+              <option value="飛び込み">飛び込み</option>
+              <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+            </optgroup>
+          </select>
+      </div>
+      <div id="skill3-container-" class="hidden">
+          <label class="label" for="skill3-">ースキル3:</label>
+          <select id="skill3-" name="skill3-">
+            <optgroup label="ユニーク">
+              <option value="冰気錬成">冰気錬成</option>
+              <option value="奮闘">奮闘</option>
+              <option value="風纏">風纏</option>
+              <option value="龍気変換">龍気変換</option>
+              <option value="粉塵纏">粉塵纏</option>
+              <option value="激昂">激昂</option>
+              <option value="根性">根性</option>
+              <option value="業鎧【修羅】">業鎧【修羅】</option>
+              <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+              <option value="狂竜症【翔】">狂竜症【翔】</option>
+            </optgroup>
+            <optgroup label="ガンナー">
+              <option value="チューンアップ">チューンアップ</option>
+              <option value="弾丸節約">弾丸節約</option>
+              <option value="装填拡張">装填拡張</option>
+              <option value="装填速度">装填速度</option>
+              <option value="反動軽減">反動軽減</option>
+            </optgroup>
+            <optgroup label="剣士">
+              <option value="心眼">心眼</option>
+              <option value="研磨術【鋭】">研磨術【鋭】</option>
+              <option value="剛刃研磨">剛刃研磨</option>
+              <option value="業物">業物</option>
+              <option value="砲弾装填">砲弾装填</option>
+              <option value="高速変形">高速変形</option>
+              <option value="匠">匠</option>
+              <option value="達人芸">達人芸</option>
+              <option value="抜刀術【技】">抜刀術【技】</option>
+              <option value="抜刀術【力】">抜刀術【力】</option>
+              <option value="砲術">砲術</option>
+              <option value="鈍器使い">鈍器使い</option>
+              <option value="砥石使用高速化">砥石使用高速化</option>
+            </optgroup>
+            <optgroup label="火力">
+              <option value="龍気活性">龍気活性</option>
+              <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+              <option value="鬼火纏">鬼火纏</option>
+              <option value="KO術">KO術</option>
+              <option value="攻撃">攻撃</option>
+              <option value="攻勢">攻勢</option>
+              <option value="渾身">渾身</option>
+              <option value="攻めの守勢">攻めの守勢</option>
+              <option value="破壊王">破壊王</option>
+              <option value="刃鱗磨き">刃鱗磨き</option>
+              <option value="死中に活">死中に活</option>
+              <option value="逆襲">逆襲</option>
+              <option value="逆恨み">逆恨み</option>
+              <option value="火事場力">火事場力</option>
+              <option value="会心撃【属性】">会心撃【属性】</option>
+              <option value="弱点特効【属性】">弱点特効【属性】</option>
+              <option value="見切り">見切り</option>
+              <option value="集中">集中</option>
+              <option value="災禍転福">災禍転福</option>
+              <option value="闇討ち">闇討ち</option>
+              <option value="巧撃">巧撃</option>
+              <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+              <option value="フルチャージ">フルチャージ</option>
+              <option value="チャージマスター">チャージマスター</option>
+              <option value="連撃">連撃</option>
+              <option value="不屈">不屈</option>
+              <option value="乗り名人">乗り名人</option>
+              <option value="超会心">超会心</option>
+              <option value="弱点特効">弱点特効</option>
+              <option value="力の解放">力の解放</option>
+              <option value="挑戦者">挑戦者</option>
+            </optgroup>
+            <optgroup label="生存">
+              <option value="疾之息吹">疾之息吹</option>
+              <option value="合気">合気</option>
+              <option value="回避性能">回避性能</option>
+              <option value="回避距離UP">回避距離UP</option>
+              <option value="耳栓">耳栓</option>
+              <option value="ガード性能">ガード性能</option>
+              <option value="精霊の加護">精霊の加護</option>
+              <option value="キノコ大好き">キノコ大好き</option>
+              <option value="泡沫の舞">泡沫の舞</option>
+              <option value="血氣">血氣</option>
+              <option value="煽衛">煽衛</option>
+              <option value="納刀術">納刀術</option>
+              <option value="スタミナ急速回復">スタミナ急速回復</option>
+              <option value="早食い">早食い</option>
+              <option value="耐震">耐震</option>
+              <option value="体術">体術</option>
+              <option value="体力回復量UP">体力回復量UP</option>
+              <option value="防御">防御</option>
+              <option value="剛心">剛心</option>
+              <option value="顕如盤石">顕如盤石</option>
+            </optgroup>
+            <optgroup label="強化">
+              <option value="速射強化">速射強化</option>
+              <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+              <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+              <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+              <option value="ガード強化">ガード強化</option>
+              <option value="強化持続">強化持続</option>
+              <option value="弾導強化">弾導強化</option>
+              <option value="睡眠属性強化">睡眠属性強化</option>
+              <option value="特殊射撃強化">特殊射撃強化</option>
+              <option value="爆破属性強化">爆破属性強化</option>
+              <option value="麻痺属性強化">麻痺属性強化</option>
+              <option value="アイテム使用強化">アイテム使用強化</option>
+              <option value="火属性攻撃強化">火属性攻撃強化</option>
+              <option value="毒属性強化">毒属性強化</option>
+              <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+              <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+              <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+              <option value="水属性攻撃強化">水属性攻撃強化</option>
+              <option value="滑走強化">滑走強化</option>
+            </optgroup>
+            <optgroup label="耐性">
+              <option value="属性やられ耐性">属性やられ耐性</option>
+              <option value="火耐性">火耐性</option>
+              <option value="水耐性">水耐性</option>
+              <option value="気絶耐性">気絶耐性</option>
+              <option value="毒耐性">毒耐性</option>
+              <option value="爆破やられ耐性">爆破やられ耐性</option>
+              <option value="氷耐性">氷耐性</option>
+              <option value="麻痺耐性">麻痺耐性</option>
+              <option value="睡眠耐性">睡眠耐性</option>
+              <option value="雷耐性">雷耐性</option>
+              <option value="龍耐性">龍耐性</option>
+              <option value="風圧耐性">風圧耐性</option>
+              <option value="腹減り耐性">腹減り耐性</option>
+              <option value="泥雪耐性">泥雪耐性</option>
+            </optgroup>
+            <optgroup label="その他">
+              <option value="翔蟲使い">翔蟲使い</option>
+              <option value="幸運">幸運</option>
+              <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+              <option value="ボマー">ボマー</option>
+              <option value="広域化">広域化</option>
+              <option value="回復速度">回復速度</option>
+              <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+              <option value="霞皮の恩恵">霞皮の恩恵</option>
+              <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+              <option value="ランナー">ランナー</option>
+              <option value="壁面移動">壁面移動</option>
+              <option value="壁面移動【翔】">壁面移動【翔】</option>
+              <option value="植生学">植生学</option>
+              <option value="地質学">地質学</option>
+              <option value="満足感">満足感</option>
+              <option value="ひるみ軽減">ひるみ軽減</option>
+              <option value="スタミナ奪取">スタミナ奪取</option>
+              <option value="ブレ抑制">ブレ抑制</option>
+              <option value="緩衝">緩衝</option>
+              <option value="供応">供応</option>
+              <option value="激励">激励</option>
+              <option value="陽動">陽動</option>
+              <option value="笛吹き名人">笛吹き名人</option>
+              <option value="飛び込み">飛び込み</option>
+              <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+            </optgroup>
+          </select>
+      </div>
+      <div id="skill4-container-" class="hidden">
+          <label class="label" for="skill4-">ースキル4:</label>
+          <select id="skill4-" name="skill4-">
+            <optgroup label="ユニーク">
+              <option value="冰気錬成">冰気錬成</option>
+              <option value="奮闘">奮闘</option>
+              <option value="風纏">風纏</option>
+              <option value="龍気変換">龍気変換</option>
+              <option value="粉塵纏">粉塵纏</option>
+              <option value="激昂">激昂</option>
+              <option value="根性">根性</option>
+              <option value="業鎧【修羅】">業鎧【修羅】</option>
+              <option value="蓄積時攻撃強化">蓄積時攻撃強化</option>
+              <option value="狂竜症【翔】">狂竜症【翔】</option>
+            </optgroup>
+            <optgroup label="ガンナー">
+              <option value="チューンアップ">チューンアップ</option>
+              <option value="弾丸節約">弾丸節約</option>
+              <option value="装填拡張">装填拡張</option>
+              <option value="装填速度">装填速度</option>
+              <option value="反動軽減">反動軽減</option>
+            </optgroup>
+            <optgroup label="剣士">
+              <option value="心眼">心眼</option>
+              <option value="研磨術【鋭】">研磨術【鋭】</option>
+              <option value="剛刃研磨">剛刃研磨</option>
+              <option value="業物">業物</option>
+              <option value="砲弾装填">砲弾装填</option>
+              <option value="高速変形">高速変形</option>
+              <option value="匠">匠</option>
+              <option value="達人芸">達人芸</option>
+              <option value="抜刀術【技】">抜刀術【技】</option>
+              <option value="抜刀術【力】">抜刀術【力】</option>
+              <option value="砲術">砲術</option>
+              <option value="鈍器使い">鈍器使い</option>
+              <option value="砥石使用高速化">砥石使用高速化</option>
+            </optgroup>
+            <optgroup label="火力">
+              <option value="龍気活性">龍気活性</option>
+              <option value="狂竜症【蝕】">狂竜症【蝕】</option>
+              <option value="鬼火纏">鬼火纏</option>
+              <option value="KO術">KO術</option>
+              <option value="攻撃">攻撃</option>
+              <option value="攻勢">攻勢</option>
+              <option value="渾身">渾身</option>
+              <option value="攻めの守勢">攻めの守勢</option>
+              <option value="破壊王">破壊王</option>
+              <option value="刃鱗磨き">刃鱗磨き</option>
+              <option value="死中に活">死中に活</option>
+              <option value="逆襲">逆襲</option>
+              <option value="逆恨み">逆恨み</option>
+              <option value="火事場力">火事場力</option>
+              <option value="会心撃【属性】">会心撃【属性】</option>
+              <option value="弱点特効【属性】">弱点特効【属性】</option>
+              <option value="見切り">見切り</option>
+              <option value="集中">集中</option>
+              <option value="災禍転福">災禍転福</option>
+              <option value="闇討ち">闇討ち</option>
+              <option value="巧撃">巧撃</option>
+              <option value="状態異常確定蓄積">状態異常確定蓄積</option>
+              <option value="フルチャージ">フルチャージ</option>
+              <option value="チャージマスター">チャージマスター</option>
+              <option value="連撃">連撃</option>
+              <option value="不屈">不屈</option>
+              <option value="乗り名人">乗り名人</option>
+              <option value="超会心">超会心</option>
+              <option value="弱点特効">弱点特効</option>
+              <option value="力の解放">力の解放</option>
+              <option value="挑戦者">挑戦者</option>
+            </optgroup>
+            <optgroup label="生存">
+              <option value="疾之息吹">疾之息吹</option>
+              <option value="合気">合気</option>
+              <option value="回避性能">回避性能</option>
+              <option value="回避距離UP">回避距離UP</option>
+              <option value="耳栓">耳栓</option>
+              <option value="ガード性能">ガード性能</option>
+              <option value="精霊の加護">精霊の加護</option>
+              <option value="キノコ大好き">キノコ大好き</option>
+              <option value="泡沫の舞">泡沫の舞</option>
+              <option value="血氣">血氣</option>
+              <option value="煽衛">煽衛</option>
+              <option value="納刀術">納刀術</option>
+              <option value="スタミナ急速回復">スタミナ急速回復</option>
+              <option value="早食い">早食い</option>
+              <option value="耐震">耐震</option>
+              <option value="体術">体術</option>
+              <option value="体力回復量UP">体力回復量UP</option>
+              <option value="防御">防御</option>
+              <option value="剛心">剛心</option>
+              <option value="顕如盤石">顕如盤石</option>
+            </optgroup>
+            <optgroup label="強化">
+              <option value="速射強化">速射強化</option>
+              <option value="貫通弾・貫通矢強化">貫通弾・貫通矢強化</option>
+              <option value="通常弾・連射矢強化">通常弾・連射矢強化</option>
+              <option value="散弾・拡散矢強化">散弾・拡散矢強化</option>
+              <option value="ガード強化">ガード強化</option>
+              <option value="強化持続">強化持続</option>
+              <option value="弾導強化">弾導強化</option>
+              <option value="睡眠属性強化">睡眠属性強化</option>
+              <option value="特殊射撃強化">特殊射撃強化</option>
+              <option value="爆破属性強化">爆破属性強化</option>
+              <option value="麻痺属性強化">麻痺属性強化</option>
+              <option value="アイテム使用強化">アイテム使用強化</option>
+              <option value="火属性攻撃強化">火属性攻撃強化</option>
+              <option value="毒属性強化">毒属性強化</option>
+              <option value="龍属性攻撃強化">龍属性攻撃強化</option>
+              <option value="氷属性攻撃強化">氷属性攻撃強化</option>
+              <option value="雷属性攻撃強化">雷属性攻撃強化</option>
+              <option value="水属性攻撃強化">水属性攻撃強化</option>
+              <option value="滑走強化">滑走強化</option>
+            </optgroup>
+            <optgroup label="耐性">
+              <option value="属性やられ耐性">属性やられ耐性</option>
+              <option value="火耐性">火耐性</option>
+              <option value="水耐性">水耐性</option>
+              <option value="気絶耐性">気絶耐性</option>
+              <option value="毒耐性">毒耐性</option>
+              <option value="爆破やられ耐性">爆破やられ耐性</option>
+              <option value="氷耐性">氷耐性</option>
+              <option value="麻痺耐性">麻痺耐性</option>
+              <option value="睡眠耐性">睡眠耐性</option>
+              <option value="雷耐性">雷耐性</option>
+              <option value="龍耐性">龍耐性</option>
+              <option value="風圧耐性">風圧耐性</option>
+              <option value="腹減り耐性">腹減り耐性</option>
+              <option value="泥雪耐性">泥雪耐性</option>
+            </optgroup>
+            <optgroup label="その他">
+              <option value="翔蟲使い">翔蟲使い</option>
+              <option value="幸運">幸運</option>
+              <option value="ジャンプ鉄人">ジャンプ鉄人</option>
+              <option value="ボマー">ボマー</option>
+              <option value="広域化">広域化</option>
+              <option value="回復速度">回復速度</option>
+              <option value="炎鱗の恩恵">炎鱗の恩恵</option>
+              <option value="霞皮の恩恵">霞皮の恩恵</option>
+              <option value="鋼殻の恩恵">鋼殻の恩恵</option>
+              <option value="ランナー">ランナー</option>
+              <option value="壁面移動">壁面移動</option>
+              <option value="壁面移動【翔】">壁面移動【翔】</option>
+              <option value="植生学">植生学</option>
+              <option value="地質学">地質学</option>
+              <option value="満足感">満足感</option>
+              <option value="ひるみ軽減">ひるみ軽減</option>
+              <option value="スタミナ奪取">スタミナ奪取</option>
+              <option value="ブレ抑制">ブレ抑制</option>
+              <option value="緩衝">緩衝</option>
+              <option value="供応">供応</option>
+              <option value="激励">激励</option>
+              <option value="陽動">陽動</option>
+              <option value="笛吹き名人">笛吹き名人</option>
+              <option value="飛び込み">飛び込み</option>
+              <option value="剥ぎ取り鉄人">剥ぎ取り鉄人</option>
+            </optgroup>
+          </select>
+      </div>
+
+        <!-- スロットプルダウン -->
+        <div>
+            <label class="label" for="slot">＋スロット:</label>
+            <select id="slot" name="slot">
+                <option value="">選択してください</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+
+        <!-- 評価ボタン -->
+        <button id="evaluate-button">評価する</button>
+
+        <!-- 結果表示 -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // スキルとその評価値を設定するオブジェクト
+        const skillRatings = {
+          "弓溜め段階解放": 4,
+          "狂竜症【蝕】": 4,
+          "龍気活性": 4,
+          "ジャンプ鉄人": 3,
+          "疾之息吹": 3,
+          "速射強化": 3,
+          "KO術": 2,
+          "ガード強化": 2,
+          "キノコ大好き": 2,
+          "スタミナ急速回復": 2,
+          "チャージマスター": 2,
+          "チューンアップ": 2,
+          "フルチャージ": 2,
+          "ランナー": 2,
+          "不屈": 2,
+          "乗り名人": 2,
+          "会心撃【属性】": 2,
+          "体力回復量UP": 2,
+          "体術": 2,
+          "刃鱗磨き": 2,
+          "剛刃研磨": 2,
+          "力の解放": 2,
+          "匠": 2,
+          "合気": 2,
+          "回避性能": 2,
+          "回避距離UP": 2,
+          "属性やられ耐性": 2,
+          "巧撃": 2,
+          "幸運": 2,
+          "弱点特効": 2,
+          "弱点特効【属性】": 2,
+          "強化持続": 2,
+          "弾丸節約": 2,
+          "弾導強化": 2,
+          "心眼": 2,
+          "抜刀術【力】": 2,
+          "抜刀術【技】": 2,
+          "挑戦者": 2,
+          "攻めの守勢": 2,
+          "攻勢": 2,
+          "攻撃": 2,
+          "散弾・拡散矢強化": 2,
+          "早食い": 2,
+          "業物": 2,
+          "死中に活": 2,
+          "泡沫の舞": 2,
+          "渾身": 2,
+          "火事場力": 2,
+          "災禍転福": 2,
+          "煽衛": 2,
+          "爆破属性強化": 2,
+          "特殊射撃強化": 2,
+          "状態異常確定蓄積": 2,
+          "睡眠属性強化": 2,
+          "研磨術【鋭】": 2,
+          "砲弾装填": 2,
+          "砲術": 2,
+          "破壊王": 2,
+          "精霊の加護": 2,
+          "納刀術": 2,
+          "翔蟲使い": 2,
+          "耐震": 2,
+          "耳栓": 2,
+          "血氣": 2,
+          "装填拡張": 2,
+          "見切り": 2,
+          "貫通弾・貫通矢強化": 2,
+          "超会心": 2,
+          "逆恨み": 2,
+          "逆襲": 2,
+          "通常弾・連射矢強化": 2,
+          "連撃": 2,
+          "達人芸": 2,
+          "鈍器使い": 2,
+          "闇討ち": 2,
+          "集中": 2,
+          "高速変形": 2,
+          "鬼火纏": 2,
+          "麻痺属性強化": 2,
+          "ガード性能": 1.5,
+          "アイテム使用強化": 1.333333333,
+          "壁面移動": 1.333333333,
+          "スタミナ奪取": 1,
+          "ひるみ軽減": 1,
+          "ブレ抑制": 1,
+          "ボマー": 1,
+          "供応": 1,
+          "剛心": 1,
+          "剥ぎ取り鉄人": 1,
+          "反動軽減": 1,
+          "回復速度": 1,
+          "地質学": 1,
+          "壁面移動【翔】": 1,
+          "広域化": 1,
+          "植生学": 1,
+          "毒属性強化": 1,
+          "毒耐性": 1,
+          "気絶耐性": 1,
+          "水属性攻撃強化": 1,
+          "水耐性": 1,
+          "氷属性攻撃強化": 1,
+          "氷耐性": 1,
+          "泥雪耐性": 1,
+          "満足感": 1,
+          "滑走強化": 1,
+          "激励": 1,
+          "火属性攻撃強化": 1,
+          "火耐性": 1,
+          "炎鱗の恩恵": 1,
+          "爆破やられ耐性": 1,
+          "睡眠耐性": 1,
+          "砥石使用高速化": 1,
+          "笛吹き名人": 1,
+          "緩衝": 1,
+          "腹減り耐性": 1,
+          "装填速度": 1,
+          "鋼殻の恩恵": 1,
+          "陽動": 1,
+          "雷属性攻撃強化": 1,
+          "雷耐性": 1,
+          "霞皮の恩恵": 1,
+          "顕如盤石": 1,
+          "風圧耐性": 1,
+          "飛び込み": 1,
+          "麻痺耐性": 1,
+          "龍属性攻撃強化": 1,
+          "龍耐性": 1,
+          "防御": 0.8,
+        };
+      
+        // スキルコスト
+        // 参照元URL
+        // https://hyperwiki.jp/mhr/custom-buildup/
+        const skillRatingCosts = {
+          "ひるみ軽減": 3,
+          "スタミナ奪取": 3,
+          "火属性攻撃強化": 3,
+          "水属性攻撃強化": 3,
+          "氷属性攻撃強化": 3,
+          "雷属性攻撃強化": 3,
+          "龍属性攻撃強化": 3,
+          "滑走強化": 3,
+          "笛吹き名人": 3,
+          "防御": 3,
+          "精霊の加護": 3,
+          "体力回復量ＵＰ": 3,
+          "回復速度": 3,
+          "風圧耐性": 3,
+          "属性やられ耐性": 3,
+          "毒耐性": 3,
+          "麻痺耐性": 3,
+          "睡眠耐性": 3,
+          "気絶耐性": 3,
+          "泥雪耐性": 3,
+          "爆破やられ耐性": 3,
+          "砥石使用高速化": 3,
+          "アイテム使用強化": 3,
+          "広域化": 3,
+          "満足感": 3,
+          "不屈": 3,
+          "腹減り耐性": 3,
+          "飛び込み": 3,
+          "陽動": 3,
+          "乗り名人": 3,
+          "供応": 3,
+          "壁面移動【翔】": 3,
+          "砲弾装填": 6,
+          "ガード性能": 6,
+          "ガード強化": 6,
+          "毒属性強化": 6,
+          "麻痺属性強化": 6,
+          "睡眠属性強化": 6,
+          "爆破属性強化": 6,
+          "ランナー": 6,
+          "体術": 6,
+          "スタミナ急速回復": 6,
+          "抜刀術【力】": 6,
+          "納刀術": 6,
+          "ＫＯ術": 6,
+          "特殊射撃強化": 6,
+          "ブレ抑制": 6,
+          "早食い": 6,
+          "耐震": 6,
+          "泡沫の舞": 6,
+          "回避性能": 6,
+          "回避距離ＵＰ": 6,
+          "破壊王": 6,
+          "壁面移動": 6,
+          "逆襲": 6,
+          "顕如盤石": 6,
+          "装填速度": 6,
+          "反動軽減": 6,
+          "霞皮の恩恵": 6,
+          "鋼殻の恩恵": 6,
+          "炎鱗の恩恵": 6,
+          "煽衛": 6,
+          "剛心": 6,
+          "剛刃研磨": 9,
+          "キノコ大好き": 9,
+          "心眼": 9,
+          "会心撃【属性】": 9,
+          "弾導強化": 9,
+          "抜刀術【技】": 9,
+          "集中": 9,
+          "強化持続": 9,
+          "攻めの守勢": 9,
+          "耳栓": 9,
+          "火事場力": 9,
+          "鬼火纏": 9,
+          "翔蟲使い": 9,
+          "チャージマスター": 9,
+          "攻勢": 9,
+          "研磨術【鋭】": 9,
+          "刃鱗磨き": 9,
+          "合気": 9,
+          "弱点特効【属性】": 9,
+          "巧撃": 9,
+          "激昂": 9,
+          "状態異常確定蓄積": 9,
+          "龍気活性": 9,
+          "業鎧【修羅】": 9,
+          "奮闘": 9,
+          "粉塵纏": 9,
+          "風纏": 9,
+          "狂竜症【翔】": 9,
+          "匠": 12,
+          "挑戦者": 12,
+          "フルチャージ": 12,
+          "逆恨み": 12,
+          "死中に活": 12,
+          "災禍転福": 12,
+          "力の解放": 12,
+          "渾身": 12,
+          "幸運": 12,
+          "連撃": 12,
+          "チューンアップ": 12,
+          "高速変形": 12,
+          "砲術": 12,
+          "闇討ち": 12,
+          "血氣": 12,
+          "狂竜症【蝕】": 12,
+          "蓄積時攻撃強化": 12,
+          "冰気錬成": 12,
+          "龍気変換": 12,
+          "見切り": 15,
+          "超会心": 15,
+          "弱点特効": 15,
+          "達人芸": 15,
+          "業物": 15,
+          "弾丸節約": 15,
+          "通常弾・連射矢強化": 15,
+          "貫通弾・貫通矢強化": 15,
+          "散弾・拡散矢強化": 15,
+          "装填拡張": 15,
+          "速射強化": 15,
+          "攻撃": 15,
+          "根性": 15,
+        }
+
+        // 錬成シミュレーション関数
+        // 参照元URL
+        // https://www.wicurio.com/risekaripi/index.php?%E9%98%B2%E5%85%B7%E3%81%AE%E5%82%80%E7%95%B0%E9%8C%AC%E6%88%90%E8%A9%B3%E7%B4%B0
+        function simulate(addSkills,minusSkills,slot) {
+          // 結果テキスト
+          resultTextSimulate=""
+          resultTextOK=""
+
+          // 使用可能コスト:強力な装備は10なので10スタートにする
+          availableCosts=10
+
+          // 最大錬成アクション回数:6回らしい。スロットは一度の増加アクションで3までありえる
+          maxCalc=6
+          
+          // 残されたアクション数
+          slot=Number(slot)
+          leftCalc=maxCalc-addSkills.length-minusSkills.length-Math.floor((slot+2)/3)
+
+          console.log(addSkills,minusSkills,slot)
+          console.log(addSkills.length,minusSkills.length,Math.floor((slot+2)/3))
+          console.log(leftCalc)
+
+          // 使用コスト:付与スキルと付与スロットで決まる
+          costs=0
+
+          // アクション回数
+          actionTimes=6
+
+          // 大体こんなことがあったのだろうループ
+          for ( var i=0; i<maxCalc; i++ ) {
+            console.log("アクション",i+1,"")
+            resultTextSimulate+="\nアクション"+String(i+1)+" "
+            if (minusSkills.length>0){
+              skill=minusSkills.shift()
+              console.log("スキル削除:",skill)
+              resultTextSimulate+="スキル削除:"+skill+"\n"
+              availableCosts+=10
+            }
+            else if (addSkills.length>0){
+              skill=addSkills.shift()
+              console.log("スキル付与:",skill)
+              resultTextSimulate+="スキル付与:"+skill+"\n"
+              costs+=skillRatingCosts[skill]
+            }
+            else if (slot > 0){
+              if (slot > 2){
+                console.log("スロット付与:",3)
+                resultTextSimulate+="スロット付与:3\n"
+                slot-=3
+                costs+=18
+              }
+              else if (slot == 2){
+                console.log("スロット付与:",2)
+                resultTextSimulate+="スロット付与:2\n"
+                slot-=2
+                costs+=12
+              }
+              else if (slot == 1){
+                console.log("スロット付与:",1)
+                resultTextSimulate+="スロット付与:1\n"
+                slot-=1
+                costs+=6
+              }
+            }
+            else {
+              if (costs-availableCosts > 4){
+                console.log("防御減少:",12)
+                resultTextSimulate+="防御減少:12\n"
+                availableCosts+=5
+              } else if (costs-availableCosts > 2){
+                console.log("耐性減少:",3,"もしくは防御減少",6)
+                resultTextSimulate+="耐性減少:3、もしくは防御減少:6\n"
+                availableCosts+=3
+              } else if (costs-availableCosts > 0){
+                console.log("耐性減少:","1~2")
+                resultTextSimulate+="耐性減少:1~2\n"
+                availableCosts+=2
+              } else {
+                console.log("変動なし")
+                resultTextSimulate+="変動なし\n"
+                actionTimes-=1
+              }
+            }
+            console.log("使用可能コスト:",availableCosts,"消費コスト:",costs,"使用可能-消費",availableCosts-costs)
+            resultTextSimulate+=`使用可能コスト:${availableCosts}
+                                消費コスト:${costs}
+                                使用可能-消費:${availableCosts-costs}`;
+          }
+          resultTextSimulate+="👈👀"
+
+          if(availableCosts-costs>-1){
+            console.log("コスト上可能な錬成です。")
+            resultTextOK+="✅コスト上可能な錬成です。\n"
+          }else{
+            console.log("コスト上不可能な錬成です。")
+            resultTextOK+="😭コスト上不可能な錬成です。(最終コストがマイナス)\n"
+          }
+          if(minusSkills.length>0 || addSkills.length>0 || slot > 0){
+            console.log("アクション回数上実現不可能です。")
+            resultTextOK+="😭アクション回数上実現不可能です。(6回以内に付与できなかったスロットorスキルがある)\n"
+          }else{
+            console.log("アクション回数上実現可能です。")
+            resultTextOK+="✅アクション回数上実現可能です。\n"
+          }
+          return [resultTextOK,resultTextSimulate,actionTimes]
+        }
+
+        document.getElementById('skill1').selectedIndex = -1;
+        document.getElementById('skill2').selectedIndex = -1;
+        document.getElementById('skill3').selectedIndex = -1;
+        document.getElementById('skill4').selectedIndex = -1;
+        document.getElementById('skill1-').selectedIndex = -1;
+        document.getElementById('skill2-').selectedIndex = -1;
+        document.getElementById('skill3-').selectedIndex = -1;
+        document.getElementById('skill4-').selectedIndex = -1;
+        document.getElementById('slot').selectedIndex = -1;
+
+        height=100
+        document.getElementById('skill1').addEventListener('change', function() {
+            document.getElementById('skill2-container').classList.remove('hidden');
+            height+=10
+            document.body.style.height=height+"vh"
+        });
+        document.getElementById('skill2').addEventListener('change', function() {
+            document.getElementById('skill3-container').classList.remove('hidden');
+            height+=10
+            document.body.style.height=height+"vh"
+        });
+        document.getElementById('skill3').addEventListener('change', function() {
+            document.getElementById('skill4-container').classList.remove('hidden');
+            height+=10
+            document.body.style.height=height+"vh"
+        });
+
+        document.getElementById('skill1-').addEventListener('change', function() {
+            document.getElementById('skill2-container-').classList.remove('hidden');
+            height+=10
+            document.body.style.height=height+"vh"
+        });
+        document.getElementById('skill2-').addEventListener('change', function() {
+            document.getElementById('skill3-container-').classList.remove('hidden');
+            height+=10
+            document.body.style.height=height+"vh"
+        });
+        document.getElementById('skill3-').addEventListener('change', function() {
+            document.getElementById('skill4-container-').classList.remove('hidden');
+            height+=10
+            document.body.style.height=height+"vh"
+        });
+
+        document.getElementById('evaluate-button').addEventListener('click', function() {
+            height+=150
+            document.body.style.height=height+"vh"
+
+            let skill1  = document.getElementById('skill1').value;
+            let skill2  = document.getElementById('skill2').value;
+            let skill3  = document.getElementById('skill3').value;
+            let skill4  = document.getElementById('skill4').value;
+            let mskill1 = document.getElementById('skill1-').value;
+            let mskill2 = document.getElementById('skill2-').value;
+            let mskill3 = document.getElementById('skill3-').value;
+            let mskill4 = document.getElementById('skill4-').value;
+            let slot = document.getElementById('slot').value;
+
+            let addSkills=[]
+            let minusSkills=[]
+            let resultText = '';
+            let uniqueCnt=0
+            let skillSlotsSum=0
+
+            if(skill1!= ""){
+              addSkills.push(skill1)
+              skill1Rating=skillRatings[skill1]
+              if(skill1Rating === undefined){
+                skill1Rating="ユニーク"
+                uniqueCnt+=1
+              }else{
+                skillSlotsSum+=skill1Rating
+              }
+              skill1RatingCosts=skillRatingCosts[skill1]
+              resultText += `スキル1: ${skill1},相当スロット数: ${skill1Rating},コスト: ${skill1RatingCosts}\n`;
+            }
+            if(skill2!= ""){
+              addSkills.push(skill2)
+              skill2Rating=skillRatings[skill2]
+              skill2RatingCosts=skillRatingCosts[skill2]
+              if(skill2Rating === undefined){
+                skill2Rating="ユニーク"
+                uniqueCnt+=1
+              }else{
+                skillSlotsSum+=skill2Rating
+              }
+              resultText += `スキル2: ${skill2},相当スロット数: ${skill2Rating},コスト: ${skill2RatingCosts}\n`;
+            }
+            if(skill3!= ""){
+              addSkills.push(skill3)
+              skill3Rating=skillRatings[skill3]
+              skill3RatingCosts=skillRatingCosts[skill3]
+              if(skill3Rating === undefined){
+                skill3Rating="ユニーク"
+                uniqueCnt+=1
+              }else{
+                skillSlotsSum+=skill3Rating
+              }
+              resultText += `スキル3: ${skill3},相当スロット数: ${skill3Rating},コスト: ${skill3RatingCosts}\n`;
+            }
+            if(skill4!= ""){
+              addSkills.push(skill4)
+              skill4Rating=skillRatings[skill4]
+              skill4RatingCosts=skillRatingCosts[skill4]
+              if(skill4Rating === undefined){
+                skill4Rating="ユニーク"
+                uniqueCnt+=1
+              }else{
+                skillSlotsSum+=skill4Rating
+              }
+              resultText += `スキル4: ${skill4},相当スロット数: ${skill4Rating},コスト: ${skill4RatingCosts}\n`;
+            }
+            if(mskill1!= ""){
+              minusSkills.push(mskill1)
+              mskill1Rating=skillRatings[mskill1]
+              mskill1RatingCosts=skillRatingCosts[mskill1]
+              if(mskill1Rating === undefined){
+                mskill1Rating="ユニーク"
+                uniqueCnt-=1
+              }else{
+                skillSlotsSum-=mskill1Rating
+              }
+              resultText += `-スキル1: ${mskill1},相当スロット数: ${mskill1Rating},コスト: ${mskill1RatingCosts}\n`;
+            }
+            if(mskill2!= ""){
+              minusSkills.push(mskill2)
+              mskill2Rating=skillRatings[mskill2]
+              mskill2RatingCosts=skillRatingCosts[mskill2]
+              if(mskill2Rating === undefined){
+                mskill2Rating="ユニーク"
+                uniqueCnt-=1
+              }else{
+                skillSlotsSum-=mskill2Rating
+              }
+              resultText += `-スキル2: ${mskill2},相当スロット数: ${mskill2Rating},コスト: ${mskill2RatingCosts}\n`;
+            }
+            if(mskill3!= ""){
+              minusSkills.push(mskill3)
+              mskill3Rating=skillRatings[mskill3]
+              mskill3RatingCosts=skillRatingCosts[mskill3]
+              if(mskill3Rating === undefined){
+                mskill3Rating="ユニーク"
+                uniqueCnt-=1
+              }else{
+                skillSlotsSum-=mskill3Rating
+              }
+              resultText += `-スキル3: ${mskill3},相当スロット数: ${mskill3Rating},コスト: ${mskill3RatingCosts}\n`;
+            }
+            if(mskill4!= ""){
+              minusSkills.push(mskill4)
+              mskill4Rating=skillRatings[mskill4]
+              mskill4RatingCosts=skillRatingCosts[mskill4]
+              if(mskill4Rating === undefined){
+                mskill4Rating="ユニーク"
+                uniqueCnt-=1
+              }else{
+                skillSlotsSum-=mskill4Rating
+              }
+              resultText += `-スキル4: ${mskill4},相当スロット数: ${mskill4Rating},コスト: ${mskill4RatingCosts}\n`;
+            }
+            if(slot!= ""){
+              resultText += `スロット: ${slot}\n`;
+              skillSlotsSum+=Number(slot)
+            }
+            resultText += `合計相当スロット数: ${skillSlotsSum}\n`;
+
+            [resultTextOK, resultTextSimulate, actionTimes]=simulate(addSkills,minusSkills,slot)
+            
+            // 実現可能か
+            resultText += `\n実現可能性\n`
+            resultText += resultTextOK
+
+            // 評価
+            // 付与自体の強度（独断）
+            resultText += `\n評価\n`
+
+            if(uniqueCnt>1){
+              resultText += '⭕️ユニークスキルが2つ付与されています。最高！\n';
+            }
+            if(uniqueCnt>0 && skillSlotsSum>1){
+              resultText += '⭕️ユニークスキル1つと2スロ分以上の付与がされています。超優秀！\n';
+            }
+            if(skillSlotsSum>4){
+              resultText += '⭕️5スロ分以上の付与がされています。超優秀！\n';
+            }
+            else if(skillSlotsSum>2){
+              resultText += '⭕️3スロ分以上の付与がされています。優秀！\n';
+            }
+            if(uniqueCnt>0){
+              resultText += '⭕️ユニークスキルが付与されています。当たりスキルです。\n';
+            }
+
+            // 錬成限界としての評価
+            if(actionTimes>5){
+              resultText += '⭕️錬成回数を限界まで使用してできる付与です。最高！\n';
+            }
+            else if(actionTimes>4){
+              resultText += '⭕️錬成回数をほぼ限界まで使用してできる付与です。超優秀！\n';
+            }
+            
+            resultText += '\n※錬成処理はだいたいこんな感じ'+resultTextSimulate
+            document.getElementById('result').innerText = resultText;
+        });
+    </script>
+</body>
+</html>
